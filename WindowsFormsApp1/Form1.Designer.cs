@@ -33,6 +33,8 @@ namespace WindowsFormsApp1
             this.btnStartVM = new System.Windows.Forms.Button();
             this.btnGetIpAddress = new System.Windows.Forms.Button();
             this.btnStopMachine = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnVMStatus
@@ -75,11 +77,33 @@ namespace WindowsFormsApp1
             this.btnStopMachine.UseVisualStyleBackColor = true;
             this.btnStopMachine.Click += new System.EventHandler(this.btnStopMachine_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(153, 229);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(187, 23);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "Deallocate";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(153, 270);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(187, 23);
+            this.button2.TabIndex = 5;
+            this.button2.Text = "List All Machines";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(579, 335);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.btnStopMachine);
             this.Controls.Add(this.btnGetIpAddress);
             this.Controls.Add(this.btnStartVM);
@@ -96,6 +120,8 @@ namespace WindowsFormsApp1
         private System.Windows.Forms.Button btnStartVM;
         private System.Windows.Forms.Button btnGetIpAddress;
         private System.Windows.Forms.Button btnStopMachine;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
     }
 }
 

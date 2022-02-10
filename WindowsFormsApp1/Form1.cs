@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows.Forms;
 
@@ -44,7 +45,7 @@ namespace WindowsFormsApp1
 
         private void btnStartVM_Click(object sender, EventArgs e)
         {
-            var cmd = "az vm start -g {0} -n {1} -d";
+            var cmd = "az vm start -g {0} -n {1}";
             var response = RunCommand(string.Format(cmd, resourseGroupName, machineName));
 
             MessageBox.Show("Machine Started :" + response);
@@ -52,7 +53,7 @@ namespace WindowsFormsApp1
 
         private void btnStopMachine_Click(object sender, EventArgs e)
         {
-            var cmd = "az vm stop -g {0} -n {1} -d";
+            var cmd = "az vm stop -g {0} -n {1}";
             var response = RunCommand(string.Format(cmd, resourseGroupName, machineName));
             MessageBox.Show("Machine Stopped :" + response);
         }
@@ -66,6 +67,39 @@ namespace WindowsFormsApp1
             var status = statusString.Substring(0, statusString.IndexOf("\""));
 
             MessageBox.Show(status);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            var cmd = "az vm list -g {0} --query \"[].{ Name: name }\"";
+            var response = RunCommand(string.Format(cmd, resourseGroupName, machineName));
+
+            try
+            {
+                var Machines = new List<string>();
+                var machineIndex = response.IndexOf("\"Name\": \"");
+                while (machineIndex >= 0)
+                {
+                    var getStrMachineName = response.Substring(machineIndex + 9);
+                    var machineName = getStrMachineName.Substring(0, getStrMachineName.IndexOf("\""));
+                    Machines.Add(machineName);
+                    response = response.Substring(response.IndexOf(machineName));
+                    machineIndex = response.IndexOf("\"Name\": \"");
+                }
+
+                MessageBox.Show("The available Name of VMs is : " + string.Join(", ", Machines));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error coming while handling the list response: "+ ex.Message);
+            }
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            var cmd = "az vm deallocate -g {0} -n {1}";
+            var response = RunCommand(string.Format(cmd, resourseGroupName, machineName));
+            MessageBox.Show("Machine Deallocated :" + response);
         }
     }
 }
